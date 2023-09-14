@@ -1,0 +1,57 @@
+security:
+  enable_authenticator_manager: true
+  password_hashers:
+    Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+  role_hierarchy:
+    ROLE_ADMIN: [ ROLE_USER, ROLE_ALLOWED_TO_SWITCH ]
+    ROLE_MODERATOR: ROLE_USER
+    ROLE_MEMBER: ROLE_USER
+
+
+  providers:
+    app_user_provider:
+      entity:
+        class: App\Entity\User
+        property: email
+
+  firewalls:
+    backend:
+      provider: app_user_provider
+      pattern: ^/dashboard
+      form_login:
+        login_path: dashboard-login
+        check_path: dashboard-login
+        default_target_path: /dashboard
+      logout:
+        path: dashboard-logout
+        target: dashboard-login
+      switch_user: true
+
+    frontend:
+      pattern: ^/
+      provider: app_user_provider
+      form_login:
+        login_path: login
+        check_path: login
+      logout:
+        path: logout
+        target: login
+      switch_user: true
+
+  access_control:
+    - { path: '^/forgot-password', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: '^/profile', roles: [ ROLE_MEMBER, ROLE_MODERATOR ] }
+    - { path: '^/profile/edit', roles: [ ROLE_MEMBER, ROLE_MODERATOR ] }
+    - { path: '^/register', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: '^/reset-password', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: '^/reset-password/{token}', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: '^/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: '^/dashboard/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: '^/dashboard', roles: ROLE_ADMIN }
+    - { path: '^/homepage', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: '^/create-post', roles: [ ROLE_MEMBER, ROLE_MODERATOR, ROLE_ADMIN ] }
+    - { path: '^/post-comment', roles: [ ROLE_MEMBER, ROLE_MODERATOR, ROLE_ADMIN ] }
+    - { path: '^/full-post', roles: [ ROLE_MEMBER, ROLE_MODERATOR, ROLE_ADMIN ] }
+    - { path: '^/moderator-posts', roles: [ ROLE_ADMIN, ROLE_MEMBER, ROLE_MODERATOR ] }
+
