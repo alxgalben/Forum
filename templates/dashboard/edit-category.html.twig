@@ -1,0 +1,34 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block content %}
+    <div style="margin-left: 15%;">
+        <div>
+            <h1>Edit Category</h1>
+            {{ form_start(editForm) }}
+            <div class="col">
+                <div class="col" id="some-custom-id">
+                    {{ form_label(editForm.title, null, {'label_attr': {'class': 'col-form-label'}}) }}
+                    {{ form_widget(editForm.title, {'attr': {'class': 'form-control', 'style': 'width: 20%;'}}) }}
+                    <small id="helpEmail" class="form-text text-muted" style="display: flex;">
+                        {{ form_label(editForm.title) }}&nbsp; must be like example@mail.com.
+                    </small>
+                    <small id="title" style="color:red;">
+                        {{ form_errors(editForm.title) }}
+                    </small>
+                </div>
+                <div class="col" id="some-custom-id">
+                    {{ form_label(editForm.description, null, {'label_attr': {'class': 'col-form-label'}}) }}
+                    {{ form_widget(editForm.description, {'attr': {'class': 'form-control', 'style': 'width: 20%;'}}) }}
+                </div>
+                <div class="col" id="some-custom-id">
+                    {{ form_label(editForm.published, null, {'label_attr': {'class': 'col-form-label'}}) }}
+                    {{ form_widget(editForm.published, {'attr': {'class': 'form-check-input custom-checkbox', 'style': 'width: 1rem; height: 1rem; margin-left:5px; margin-top:10px;'}}) }}
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Save</button>
+                <br>
+            </div>
+            {{ form_end(editForm) }}
+        </div>
+    </div>
+{% endblock %}

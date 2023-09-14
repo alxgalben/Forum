@@ -1,0 +1,36 @@
+{% extends 'frontend_layout.html.twig' %}
+
+{% block title %}4oom | homepage{% endblock %}
+
+{% block body %}
+    <div class="container" style="margin-top: 30px;">
+        <div class="card mb-4 shadow"> <!-- Add the "shadow" class here -->
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.body|raw }}</p>
+                <h6 class="card-subtitle mb-2 text-muted">Published on {{ post.dateCreated|date('F j, Y') }}</h6>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="text-uppercase red-text" style="text-align: center;">This post is closed.</h2>
+
+    <div class="comments" style="text-align: center;">
+    {% for reply in replies %}
+        <div class="container" style="margin-top: 30px;">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p class="card-text">{{ reply.body|striptags }}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">Last edit on {{ reply.lastModified|date('F j, Y') }}</h6>
+                    <a href="{{ path('reply-action', {'id': reply.id, 'action': 'edit'}) }}" class="btn btn-warning"
+                       style="margin-top: 20px;">Edit</a>
+                    <a href="{{ path('reply-action', {'id': reply.id, 'action': 'delete'}) }}" class="btn btn-danger"
+                       style="margin-top: 20px;">Delete</a>
+
+                </div>
+            </div>
+        </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}

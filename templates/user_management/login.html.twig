@@ -1,0 +1,33 @@
+{% extends 'frontend_layout.html.twig' %}
+{% block title %}4oom | login{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <form action="{{ path('login') }}" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Email:</label>
+                        <input type="text" class="form-control" id="username" name="_username" value="{{ lastUsername }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="password" name="_password">
+                    </div>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <h6><a href="{{ path("forgot-password") }}">Forgot password?</a></h6>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

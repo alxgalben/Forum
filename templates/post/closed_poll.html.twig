@@ -1,0 +1,18 @@
+{% extends 'frontend_layout.html.twig' %}
+
+{% block body %}
+    <h3>{{ poll.question }}</h3>
+
+    <ul>
+        {% for percentage in percentages %}
+            <li>
+                {{ percentage.choice_content }}:
+                {% if poll.pollAnswers.count > 0 %}
+                    {{ (percentage.vote_count / poll.pollAnswers.count) * 100 }}%
+                {% else %}
+                    0%
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

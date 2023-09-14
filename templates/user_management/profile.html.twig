@@ -1,0 +1,44 @@
+{% extends 'frontend_layout.html.twig' %}
+
+{% block title %}4oom | Profile{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .accent-text {
+            color: #007bff;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-center">Hello, <span class="accent-text">{{ app.user.username|capitalize }}</span>!</h1>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-center">Welcome to your profile page!</p>
+                    </div>
+
+                    <div class="card-body text-center">
+                        <a href="{{ path('create-post') }}" class="btn btn-success">Create a post</a>
+                    </div>
+                    <div class="card-body text-center">
+                        <a href="{{ path('my-posts') }}" class="btn btn-info">My Posts</a>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{{ path('profile-edit') }}" class="btn btn-primary">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if is_granted('IS_IMPERSONATOR') %}
+        <div class="d-flex justify-content-center" style="margin-top: 20px;">
+            <a href="{{ impersonation_exit_path(path('main')) }}" class="btn btn-danger">Exit impersonation</a>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'backend_login_layout.html.twig' %}
+
+{% block title %}4oom | dashboard login{% endblock %}
+
+{% block body %}
+    <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+        <div style="background-color: #f0f0f0; padding: 20px; border-radius: 5px;">
+            <h3 style="text-align: center; margin-bottom: 20px;">Dashboard Login</h3>
+            <p>{{ error }}</p>
+            <form action="{{ path('dashboard-login') }}" method="post">
+                <div style="margin-bottom: 15px;">
+                    <label for="username" style="font-weight: bold;">Email:</label>
+                    <input type="text" style="width: 100%; padding: 5px;" id="username" name="_username" value="{{ lastUsername }}" placeholder="Email">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="password" style="font-weight: bold;">Password:</label>
+                    <input type="password" style="width: 100%; padding: 5px;" id="password" name="_password" placeholder="Password">
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <button type="submit" style="width: 100%; padding: 10px; background-color: #007bff; color: #fff; border: none; border-radius: 5px;">Sign in</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

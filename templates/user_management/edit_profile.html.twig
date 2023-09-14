@@ -1,0 +1,56 @@
+{% extends 'frontend_layout.html.twig' %}
+
+{% block title %}4oom | Edit Profile{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="form-container">
+                    <h2 class="text-center" style="margin-bottom: 15px;">Edit Profile</h2>
+                    {{ form_start(editForm) }}
+                    <div class="mb-3 text-center">
+                        {{ form_label(editForm.currentPassword, 'Current Password', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(editForm.currentPassword, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(editForm.currentPassword) }}
+                    </div>
+                    <div class="mb-3 text-center">
+                        {{ form_label(editForm.newPassword, 'New Password', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(editForm.newPassword, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(editForm.newPassword) }}
+                    </div>
+                    <div class="mb-3 text-center">
+                        {{ form_label(editForm.repeatNewPassword, 'Repeat New Password', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(editForm.repeatNewPassword, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(editForm.repeatNewPassword) }}
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                    {{ form_end(editForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

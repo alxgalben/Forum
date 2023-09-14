@@ -1,0 +1,73 @@
+{% extends 'frontend_layout.html.twig' %}
+
+{% block title %}Create poll{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Create a New Poll</h3>
+                    </div>
+                    <div class="card-body">
+
+                        <form name="poll" method="post" class="needs-validation" novalidate="novalidate">
+                            <div class="form-group">
+                                {{ form_label(form.question, 'Poll Question', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                                {{ form_widget(form.question, {'attr': {'class': 'form-control', 'placeholder': 'Enter poll question'}}) }}
+                                {{ form_errors(form.question) }}
+                            </div>
+                            <div class="form-group" id="poll-choices">
+                                {{ form_label(form.choices, 'Choices', {'label_attr': {'class': 'font-weight-bold'}}) }}
+
+                                <div class="input-group mb-2">
+                                    <input type="text" id="poll_choices" name="poll[choices][]" class="form-control" placeholder="Enter choice">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary remove-choice" type="button">Remove
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-primary add-choice">Add Choice</button>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Poll</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block page_javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const choicesContainer = document.getElementById('poll-choices');
+            const addChoiceButton = choicesContainer.querySelector('.add-choice');
+
+            addChoiceButton.addEventListener('click', function () {
+                const choiceField = document.createElement('div');
+                choiceField.className = 'input-group mb-2';
+
+                choiceField.innerHTML = `
+                <input type="text" class="form-control" placeholder="Enter choice" name="poll[choices][]">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary remove-choice" type="button">Remove</button>
+                </div>
+            `;
+
+                choicesContainer.insertBefore(choiceField, addChoiceButton);
+            });
+
+            choicesContainer.addEventListener('click', function (event) {
+                if (event.target.classList.contains('remove-choice')) {
+                    event.target.closest('.input-group').remove();
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+

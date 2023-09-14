@@ -1,0 +1,25 @@
+{% extends 'frontend_layout.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">Edit post</h1>
+                {{ form_start(editForm, {'attr': {'class': 'form'}}) }}
+                <div class="form-group">
+                    {{ form_label(editForm.title, 'Comment', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                    {{ form_widget(editForm.title, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(editForm.body, 'Comment', {'label_attr': {'class': 'font-weight-bold'}}) }}
+                    {{ form_widget(editForm.body, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                {{ form_end(editForm) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
